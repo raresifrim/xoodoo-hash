@@ -228,7 +228,7 @@ mod tests {
         for i in 0..test_vec.len() {
             let mut hasher = XoodooHash::<XoodooStateNC>::new(test_vec[i].in_bytes);
             hasher.permute_nc();
-            assert_eq!(hasher.digest_nc(), test_vec[i].out_bytes);
+            assert_eq!(hasher.digest_bytes(), test_vec[i].out_bytes);
         }
     }
 

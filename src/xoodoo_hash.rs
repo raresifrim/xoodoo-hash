@@ -65,7 +65,12 @@ impl XoodooHash<XoodooStateNC>  {
         self.state.round(2);
     }
 
-    pub fn digest_nc(&self) -> Vec<u8> {
+    //return the digest as 3 ints for faster arithmetic
+    pub fn digest_nc(&self) -> [u32; 3] {
+        self.state.planes
+    }
+
+    pub fn digest_bytes(&self) -> Vec<u8> {
         self.state.get_state()
     }
 

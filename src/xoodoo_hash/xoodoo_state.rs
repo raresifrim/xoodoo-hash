@@ -176,7 +176,7 @@ impl XoodooState for XoodooStateFull{
 
 
 pub struct XoodooStateNC {
-    planes: [u32; 3]
+    pub planes: [u32; 3]
 }
 
 impl XoodooState for XoodooStateNC{
