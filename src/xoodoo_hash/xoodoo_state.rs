@@ -199,7 +199,7 @@ impl XoodooState for XoodooStateNC{
                 planes[i] |= (data[start + j] as u32) << 8*j;
             }
         }
-        println!("{:X?}", planes);
+        
         Self { planes }
     }
 
@@ -228,7 +228,7 @@ impl XoodooState for XoodooStateNC{
         let mut p2 = p1;
         
         p1 = shift_lane(p1, 5);
-        p2 = shift_lane(p2, 11);
+        p2 = shift_lane(p2, 14);
         
         let e = p1 ^ p2;
 
