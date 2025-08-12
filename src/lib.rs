@@ -2,7 +2,7 @@ pub mod xoodoo_hash;
 
 #[cfg(test)]
 mod tests {
-    use crate::xoodoo_hash::{xoodoo_state::XoodooStateNC, XoodooHash};
+    use crate::xoodoo_hash::{xoodoo_state::{XoodooStateFull, XoodooStateNC}, XoodooHash};
 
     struct FullTestDigest {
         in_bytes: &'static [u8],
@@ -196,7 +196,7 @@ mod tests {
         ];
 
         for i in 0..test_vec.len() {
-            let mut hasher = XoodooHash::new_from_bytes(
+            let mut hasher = XoodooHash::<XoodooStateFull>::new_from_bytes(
                 test_vec[i].in_bytes,
                 test_vec[i].rounds,
                 4
@@ -226,7 +226,7 @@ mod tests {
         ];
 
         for i in 0..test_vec.len() {
-            let mut hasher = XoodooHash::<XoodooStateNC>::new(test_vec[i].in_bytes);
+            let mut hasher = XoodooHash::<XoodooStateNC>::new_from_bytes(test_vec[i].in_bytes);
             hasher.permute_nc();
             assert_eq!(hasher.digest_bytes(), test_vec[i].out_bytes);
         }
