@@ -50,7 +50,7 @@ impl XoodooHash<XoodooStateFull>  {
 
 impl XoodooHash<XoodooStateNC>  {
    
-   pub fn new_from_bytes(data: &[u8]) -> Self{
+    pub fn new_from_bytes(data: &[u8]) -> Self{
         assert!(data.len() <= 12);
         let state = XoodooState::new_from_bytes(data, None);
         Self {
@@ -68,7 +68,7 @@ impl XoodooHash<XoodooStateNC>  {
         }
     }
 
-     pub fn new_from_u64(data: u64) -> Self {
+    pub fn new_from_u64(data: u64) -> Self {
         //NC specific function
         let state = XoodooStateNC::new_from_u64(data);
         Self {
