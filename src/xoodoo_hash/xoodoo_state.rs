@@ -179,6 +179,16 @@ pub struct XoodooStateNC {
     pub planes: [u32; 3]
 }
 
+impl XoodooStateNC {
+    pub fn new_from_u32(data: u32) -> Self {
+        Self { planes: [data, 0, 0] }
+    }
+
+    pub fn new_from_u64(data: u64) -> Self {
+        Self { planes: [(data & u32::MAX as u64) as u32 , (data >> 32) as u32, 0] }
+    }
+}
+
 impl XoodooState for XoodooStateNC{
     
     fn new_from_bytes(data: &[u8], num_lanes_per_plane: Option<usize>) -> Self {
