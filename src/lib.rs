@@ -206,6 +206,7 @@ mod tests {
         }
     }
 
+    
     struct NCTestDigest {
         in_bytes: &'static [u8; 12],
         out_bytes: &'static [u8; 12],

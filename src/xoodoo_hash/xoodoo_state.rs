@@ -192,21 +192,29 @@ impl XoodooStateNC {
 impl XoodooState for XoodooStateNC{
     
     fn new_from_bytes(data: &[u8], num_lanes_per_plane: Option<usize>) -> Self {
-        assert!(data.len() <= 12); //96-bit state in this case
+        assert!(data.len() <= MAX_STATE_BYTES); 
+
+        let mut state= [0u8; 12];
         
+        for _ in 0..=data.len()/12 {
+            for byte in 0..data.len() {
+                state[byte % 12] ^= data[byte];
+            }
+        }
+
         let num_lanes = 1;
         let mut planes= [0; 3];
         let bytes_per_plane = num_lanes * 4;
         
         for i in 0..MAX_NUM_PLANES {
             let start = i * bytes_per_plane;
-            let end = if i * bytes_per_plane + 4 <= data.len() {
+            let end = if i * bytes_per_plane + 4 <= state.len() {
                 i * bytes_per_plane + 4   
             } else {
-                data.len()
+                state.len()
             };
             for j in 0..(end-start) {
-                planes[i] |= (data[start + j] as u32) << 8*j;
+                planes[i] |= (state[start + j] as u32) << 8*j;
             }
         }
         
